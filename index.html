@@ -1,9 +1,355 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suzuki S-Presso | Tu Declaración de Independencia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'suzuki-orange': '#FF6600',
+                        'asphalt': '#1A1A1A',
+                        'light-bg': '#F9FAFB',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F9FAFB;
+            color: #1A1A1A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 35vh;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+                max-height: 450px;
+            }
+        }
+        .tab-btn.active {
+            background-color: #FF6600;
+            color: white;
+            border-color: #FF6600;
+        }
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        .benefit-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 102, 0, 0.2);
+        }
+    </style>
 </head>
-<body>
-  <h1>FUNCIONA 🚀</h1>
+<body class="font-sans antialiased overflow-x-hidden">
+
+    <!-- Chosen Palette: Naranja Vibrante (#FF6600), Gris Asfalto (#1A1A1A), Blanco/Gris Claro (#F9FAFB) -->
+    <!-- Application Structure Plan: La aplicación está diseñada como una experiencia de desplazamiento continuo y persuasivo (Landing Page), guiando al usuario desde la captura de atención emocional (Hero), pasando por la empatía del problema urbano (Tabs P.A.S.), la demostración lógica de beneficios (Tarjetas visuales), hasta la racionalización de la compra con datos financieros (Gráfico interactivo). Esta estructura emula un embudo de conversión, respondiendo a objeciones progresivamente y manteniendo al usuario activo mediante la exploración de datos y pestañas. -->
+    <!-- Visualization & Content Choices: 
+         1. Hero: Impacto inicial -> Visualización del auto/actitud -> Justificación: Captura la rebeldía del target.
+         2. P.A.S. Framework: Empatía interactiva -> Pestañas (Tabs) -> Justificación: Evita abrumar con texto y hace que el usuario 'descubra' el problema y la solución.
+         3. Beneficios: Demostración -> Tarjetas interactivas con emojis -> Justificación: NO SVG, iconos nativos amigables que invitan al clic/hover.
+         4. Objeciones (Sedán Usado vs S-Presso): Comparación financiera -> Gráfico de Barras Agrupadas (Chart.js) -> Interacción: Tooltips dinámicos -> Justificación: Tangibiliza el ahorro y destruye el mito del 'usado baratito' con datos duros. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-asphalt text-white py-4 px-6 sticky top-0 z-50 shadow-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-display font-black tracking-tighter italic">S-PRESSO</div>
+            <button onclick="document.getElementById('cta-section').scrollIntoView({behavior: 'smooth'})" class="bg-suzuki-orange text-white text-sm font-bold py-2 px-4 rounded hover:bg-orange-600 transition">Agendar Test Drive</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="bg-asphalt text-white py-16 md:py-24 px-6 relative overflow-hidden">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+                <div class="order-2 md:order-1">
+                    <span class="inline-block bg-suzuki-orange text-white font-bold tracking-wider text-xs px-3 py-1 rounded-full uppercase mb-6">UN CARRO DE PELÍCULA 🎬</span>
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-tight mb-6">
+                        Que sigan criticando en redes. Tú ya llegaste, estacionaste y gastaste la mitad en bencina.
+                    </h1>
+                    <p class="text-gray-300 text-lg md:text-xl mb-8 leading-relaxed">
+                        Esta sección inicial rompe el patrón. Su propósito es conectar instantáneamente con la mentalidad independiente del joven profesional urbano. Aquí presentamos la premisa central: el S-Presso no es solo un auto, es una herramienta para vencer el caos de la ciudad y mantener tus finanzas sanas, desafiando el status quo. No necesitas endeudarte por 5 años para tener tu primer 0km.
+                    </p>
+                    <button onclick="document.getElementById('pas-section').scrollIntoView({behavior: 'smooth'})" class="w-full md:w-auto bg-suzuki-orange text-white font-bold py-4 px-8 rounded text-lg hover:bg-orange-600 transition transform hover:scale-105 shadow-lg shadow-orange-500/30">
+                        👉 COTIZAR MI INDEPENDENCIA
+                    </button>
+                </div>
+                <div class="order-1 md:order-2 relative h-[300px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl border-4 border-asphalt bg-gray-800 flex flex-col items-center justify-center">
+                    <img src="https://lh6.googleusercontent.com/proxy/Qz1n8EpBMdbxfLaoSQziqySU7BzS5i6ZM9AsPdjKH3ePt_OgrH16Lb8LiEvcFnE4UHXiMD_1M5PVVTsfGZR4PGrOgpa7CHJlytA" alt="Suzuki S-Presso Naranja en la ciudad" class="absolute inset-0 w-full h-full object-cover mix-blend-lighten opacity-90" onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';">
+                    <div id="hero-fallback" class="hidden flex-col items-center justify-center z-10 p-6 text-center">
+                        <span class="text-8xl mb-4">🚙💨</span>
+                        <p class="text-suzuki-orange font-bold text-xl uppercase tracking-widest">Actitud Urbana</p>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-asphalt via-transparent to-transparent"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pas-section" class="py-20 px-6 bg-light-bg">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-display font-black text-asphalt mb-4 uppercase">El Caos de la Ciudad vs. Tu Tranquilidad</h2>
+                    <p class="text-gray-600 text-lg">
+                        En esta sección interactiva exploramos la transición psicológica del usuario. Hacemos clic en los problemas diarios del transporte urbano, exponemos por qué las alternativas convencionales fallan (la agitación), y revelamos cómo la agilidad y economía del S-Presso resuelven esta tensión. Interactúa con las pestañas para descubrir la historia.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button class="tab-btn active px-6 py-3 rounded-full font-bold border-2 border-gray-300 text-gray-500 hover:border-suzuki-orange hover:text-suzuki-orange" data-target="problema">1. El Problema</button>
+                    <button class="tab-btn px-6 py-3 rounded-full font-bold border-2 border-gray-300 text-gray-500 hover:border-suzuki-orange hover:text-suzuki-orange" data-target="agitacion">2. La Agitación</button>
+                    <button class="tab-btn px-6 py-3 rounded-full font-bold border-2 border-gray-300 text-gray-500 hover:border-suzuki-orange hover:text-suzuki-orange" data-target="solucion">3. La Solución</button>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 md:p-12 shadow-xl border-t-4 border-suzuki-orange min-h-[250px] flex items-center">
+                    <div id="content-problema" class="tab-content w-full">
+                        <span class="text-5xl block mb-4">🚇😰</span>
+                        <h3 class="text-2xl font-bold mb-3">¿Cansado de perder tu tiempo?</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            ¿Perder 40 minutos esperando el transporte público o gastar una fortuna en aplicaciones de viaje cada vez que quieres salir? Vivir en la ciudad es increíble, pero moverte por ella se ha vuelto un dolor de cabeza diario. Tu tiempo es valioso y lo estás perdiendo en el tráfico o en paraderos.
+                        </p>
+                    </div>
+                    <div id="content-agitacion" class="tab-content hidden w-full">
+                        <span class="text-5xl block mb-4">💸📉</span>
+                        <h3 class="text-2xl font-bold mb-3">Las alternativas tradicionales son trampas.</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            Y la solución tradicional es peor: meterte en un crédito bancario interminable por un SUV gigante que no cabe en ningún estacionamiento, o comprar ese "sedán usado baratito" que pasa más tiempo en el taller mecánico que en la calle. ¿De verdad quieres empezar tu vida profesional sumando estrés y deudas?
+                        </p>
+                    </div>
+                    <div id="content-solucion" class="tab-content hidden w-full">
+                        <span class="text-5xl block mb-4">🔑✨</span>
+                        <h3 class="text-2xl font-bold text-suzuki-orange mb-3">Hackea el sistema.</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            El Suzuki S-Presso es la respuesta inteligente. Un citycar con alma de SUV diseñado específicamente para devorar la ciudad sin vaciar tu cuenta bancaria. Un vehículo cero kilómetros que te devuelve el control de tu agenda, tu economía y tu estilo de vida.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="benefits" class="py-20 px-6 bg-gray-200">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-display font-black text-asphalt mb-6">Míralo bien. Está diseñado para sobrevivir a la selva de cemento.</h2>
+                    <p class="text-gray-700 text-lg max-w-3xl mx-auto">
+                        Este bloque detalla las características físicas y tecnológicas del auto, conectándolas directamente con beneficios prácticos para el conductor urbano. No listamos especificaciones aburridas; traducimos el diseño (altura, tamaño, color) en ventajas tácticas para el día a día. Explora las tarjetas para entender su superioridad urbana.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="benefit-card bg-white rounded-2xl p-8 shadow-lg text-center border-b-4 border-transparent hover:border-suzuki-orange">
+                        <div class="text-6xl mb-6">📐</div>
+                        <h3 class="text-xl font-black uppercase mb-4 text-asphalt">Altura que impone respeto</h3>
+                        <p class="text-gray-600">
+                            Esa altura libre al suelo estilo SUV no es solo estética. Es tu seguro personal contra los peores lomos de toro, baches y desniveles de la ciudad. Ves el tráfico desde arriba y manejas sin miedo a raspar el parachoques.
+                        </p>
+                    </div>
+                    
+                    <div class="benefit-card bg-white rounded-2xl p-8 shadow-lg text-center border-b-4 border-transparent hover:border-suzuki-orange">
+                        <div class="text-6xl mb-6">🥷</div>
+                        <h3 class="text-xl font-black uppercase mb-4 text-asphalt">Agilidad de Ninja</h3>
+                        <p class="text-gray-600">
+                            Mientras las camionetas sudan frío para cambiar de pista o entrar a ese estacionamiento subterráneo diminuto, tú te mueves, te escabulles y te estacionas a la primera. El tamaño perfecto para espacios imposibles.
+                        </p>
+                    </div>
+
+                    <div class="benefit-card bg-white rounded-2xl p-8 shadow-lg text-center border-b-4 border-transparent hover:border-suzuki-orange">
+                        <div class="text-6xl mb-6">🔥</div>
+                        <h3 class="text-xl font-black uppercase mb-4 text-asphalt">Energía y Tecnología</h3>
+                        <p class="text-gray-600">
+                            Un color vibrante que rompe la monotonía gris. ¿Tecnología? La justa y necesaria: Pantalla táctil, Apple CarPlay / Android Auto y cámara de retroceso. Tu GPS y tu playlist de Spotify mandan sin distracciones inútiles.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="objections" class="py-20 px-6 bg-white">
+            <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-display font-black text-asphalt mb-6 uppercase">"¿Y por qué no un sedán usado con detalles?"</h2>
+                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                        Aquí abordamos la objeción de compra más común en este segmento: la comparación con vehículos de segunda mano. Utilizamos visualización de datos para proyectar y comparar los costos ocultos a lo largo del tiempo. El gráfico demuestra numéricamente que el ahorro inicial de un usado se pierde rápidamente en combustible y mantenimiento, coronando al S-Presso como la decisión financiera inteligente.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-suzuki-orange font-bold mr-3 mt-1">✓</span>
+                            <div>
+                                <strong class="block text-asphalt">Rendimiento Real (Ahorro en bencina):</strong>
+                                <span class="text-gray-600">Ese sedán del 2014 con motor 2.0 te cobrará un sueldo extra solo en bencina. El S-Presso maximiza cada gota.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-suzuki-orange font-bold mr-3 mt-1">✓</span>
+                            <div>
+                                <strong class="block text-asphalt">Cero Sorpresas (Garantía 0km):</strong>
+                                <span class="text-gray-600">Nada de ruidos raros en el motor, panas sorpresa a mitad de autopista ni gastos imprevistos. Giras la llave y punto.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-6 shadow-inner border border-gray-200 w-full">
+                    <h3 class="text-center font-bold text-gray-500 text-sm tracking-widest uppercase mb-4">Proyección de Gastos Mensuales Extra (Estimado)</h3>
+                    <div class="chart-container">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-gray-400 mt-4">* Datos referenciales para fines demostrativos. Sedán 2.0 usado vs Motor 1.0 S-Presso.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta-section" class="bg-suzuki-orange text-white py-24 px-6 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl md:text-6xl font-display font-black mb-6 drop-shadow-md">Tu tiempo y tu libertad valen más que un prejuicio.</h2>
+                <p class="text-xl md:text-2xl mb-12 font-medium bg-black/10 inline-block px-6 py-3 rounded-lg">
+                    Estás a una decisión de cambiar cómo vives tu ciudad. Deja de scrollear buscando opciones mágicas y ven a probar la opción inteligente.
+                </p>
+                <div>
+                    <button onclick="alert('Iniciando flujo de cotización. Redirigiendo a formulario seguro...')" class="bg-asphalt text-white font-black py-5 px-10 rounded-lg text-xl md:text-2xl uppercase tracking-wider hover:bg-black transition shadow-2xl transform hover:-translate-y-1">
+                        🚀 Agendar mi Test Drive (Y Tapar Bocas)
+                    </button>
+                    <p class="mt-4 text-sm font-medium text-white/80">
+                        *Sin compromiso de compra. Cotización 100% online en menos de 2 minutos.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-asphalt text-gray-500 py-8 text-center text-sm border-t border-gray-800">
+        <p>&copy; 2026 Suzuki S-Presso Landing Page Demo. Diseño basado en análisis CRO y Copywriting.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => b.classList.remove('active', 'text-suzuki-orange', 'border-suzuki-orange'));
+                    b = btn;
+                    b.classList.add('active');
+
+                    tabContents.forEach(content => content.classList.add('hidden'));
+
+                    const targetId = `content-${b.getAttribute('data-target')}`;
+                    document.getElementById(targetId).classList.remove('hidden');
+                });
+            });
+
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            
+            const chartData = {
+                labels: ['Gasto Bencina', 'Mantención Imprevista', 'Costo Tecnológico'],
+                datasets: [
+                    {
+                        label: 'S-Presso 0km',
+                        data: [45000, 0, 0],
+                        backgroundColor: '#FF6600',
+                        borderRadius: 6,
+                        barPercentage: 0.6
+                    },
+                    {
+                        label: 'Sedán Usado (2014)',
+                        data: [95000, 40000, 15000],
+                        backgroundColor: '#2D2D2D',
+                        borderRadius: 6,
+                        barPercentage: 0.6
+                    }
+                ]
+            };
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    family: "'Inter', sans-serif",
+                                    weight: 'bold'
+                                },
+                                color: '#1A1A1A'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(26, 26, 26, 0.9)',
+                            titleFont: { family: "'Inter', sans-serif", size: 14 },
+                            bodyFont: { family: "'Inter', sans-serif", size: 13 },
+                            padding: 12,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: { family: "'Inter', sans-serif" },
+                                color: '#666',
+                                callback: function(value) {
+                                    return '$' + (value/1000) + 'k';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: { family: "'Inter', sans-serif", weight: '600' },
+                                color: '#1A1A1A'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
